@@ -6,14 +6,24 @@ import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.RecyclerView
+import org.d3if2015.galerihewan.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        Log.d("Mamamamam", "Jumlahdata:" + getData().size)
+        with(binding.recyclerView){
+            addItemDecoration(DividerItemDecoration(context,RecyclerView.VERTICAL))
+            adapter = MainAdapter(getData())
+            setHasFixedSize(true)
+        }
     }
 
     private fun getData(): List<Hewan>{
